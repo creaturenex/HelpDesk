@@ -2,7 +2,7 @@
 
 ## A Fullstack Ticketing System
 
-## [HelpDesk Demo]([https://github.com/creaturenex/HelpDesk](https://helpdesk-uxty.onrender.com/))
+## [HelpDesk Demo](https://helpdesk-uxty.onrender.com/)
 
 ### Instructions
 
