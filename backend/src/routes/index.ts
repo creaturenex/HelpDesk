@@ -17,8 +17,8 @@ export default (function router(): Router {
     }
   })
 
-  router.post('/login', login);
-  router.post('/logout', logout);
+  router.post('/auth/login', login);
+  router.post('/auth/logout', logout);
 
   // Add new
   router.put('/api/ticket/new', addTicket, (req: Request, res: Response, next: NextFunction) => {
