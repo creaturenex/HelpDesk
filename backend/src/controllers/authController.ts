@@ -15,10 +15,11 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;
-
+  console.log('username: ', username, '& password: ', password )
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     req.session.isAdmin = true; 
     res.status(200).json({ message: 'Logged in successfully' });
+    console.log(req.session)
     return next()
   } else {
 
