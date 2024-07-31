@@ -5,7 +5,7 @@ import path from "path";
 import logger from "morgan";
 import router from "./routes/index";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 dotenv.config();
 
 const MONGO_DB = process.env.MONGO_DB;
@@ -20,9 +20,7 @@ mongoose
     // options for the connect method to parse the URI
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    // sets the name of the DB that our collections are part of
-    dbName: 'Obsidian'
-  })
+  } as ConnectOptions)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
