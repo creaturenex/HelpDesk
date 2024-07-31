@@ -6,6 +6,8 @@ export default (function router(): Router {
   const router = express.Router();
 
   // Public Routes
+
+  
   router.get('/', (req: Request, res: Response, next: NextFunction) => {
     try {
       res.status(200).json('Help Desk')

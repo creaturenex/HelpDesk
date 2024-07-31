@@ -17,12 +17,15 @@ export const login = (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;
   console.log('username: ', username, '& password: ', password )
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    req.session.isAdmin = true; 
-    res.status(200).json({ message: 'Logged in successfully' });
-    console.log(req.session)
-    return next()
+    req.session.isAdmin = true;
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).json({ message: 'Error logging in' });
+      }
+      res.status(200).json({ message: 'Logged in successfully' });
+    });
   } else {
-
     res.status(401).json({ message: 'Invalid credentials' });
   }
 };

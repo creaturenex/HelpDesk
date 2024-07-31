@@ -32,6 +32,10 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+if (process.env.NODE_ENV === "production") {
+  app.set('trust proxy', 1);
+}
+
 app.use(session({
   secret: '1234',
   resave: false,
@@ -50,7 +54,13 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 // Admin Router
 app.use("/", router);
 
-// User Router
+app.get('/debug-session', (req, res) => {
+  res.json({
+    session: req.session,
+    sessionID: req.sessionID,
+    cookies: req.cookies,
+  });
+});
 
 // Global error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
