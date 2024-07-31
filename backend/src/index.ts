@@ -16,7 +16,13 @@ if (!MONGO_DB) {
 }
 
 mongoose
-  .connect(MONGO_DB)
+  .connect(MONGO_DB, {
+    // options for the connect method to parse the URI
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // sets the name of the DB that our collections are part of
+    dbName: 'Obsidian'
+  })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
