@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
   component: () => {
@@ -10,7 +9,6 @@ export const Route = createRootRoute({
         <div className='flex flex-col items-center justify-start min-h-screen mt-16 md:justify-center'>
           <Outlet />
         </div>
-        <TanStackRouterDevtools />
       </>
     )
   }
