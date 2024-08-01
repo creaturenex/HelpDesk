@@ -50,6 +50,8 @@ The frontend is built on Typescript, React, Shadcn for components, Tan Stack Rou
 
 I decided to use a multipage app design as it would handle the ticket models structure better. I used very basic auth with session and no additional users, to highlight public and protected endpoints.
 
+For this reason, I setup the archtecture to fetch individual ticket data from the backend per the routes setup in the back for both the show and edit components. The ticket data could have been passed as props to the relevant components but wanted to show the data fetching and have a more traditional MVC setup.
+
 ### Challenges
 
 Typing is a challenge when using external libraries, but was able to get it to work.
