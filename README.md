@@ -71,3 +71,5 @@ Extract out ticket form into it's component. This was not done due to time const
 Use OAuth for a robust auth system.
 
 Add tests, testing was setup but not implemented due to time constraints.
+
+Use [express session and memorystore](https://github.com/roccomuso/memorystore) to prevent memory leak happening in production.
