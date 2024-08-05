@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import TicketForm from "./TicketForm";
 import formatDateToUTC from "@/utils/formatDate";
+import { ExistingTicketFormValues } from "@/types/types";
 
 export default function TShow() {
-  const [ticket, setTicket] = useState(null);
+  const [ticket, setTicket] = useState<ExistingTicketFormValues | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +17,7 @@ export default function TShow() {
       setTicket({
         ...data,
         createdAt: formatDateToUTC(data.createdAt.toString()),
-      });
+      } as ExistingTicketFormValues);
     };
     fetchData();
   }, []);

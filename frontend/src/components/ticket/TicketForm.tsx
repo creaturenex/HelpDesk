@@ -30,43 +30,45 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@tanstack/react-router";
 import RotateLoader from "react-spinners/RotateLoader";
+import { ExistingTicketFormValues, TicketFormValues } from "@/types/types";
 
-const formSchema = z.object({
+export const ticketFormSchema = z.object({
+  _id: z.string().optional(), // Not present for new ticket
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
-  description: z
-    .string()
-    .min(10, "Description must be at least 10 characters."),
-  status: z.string().optional(),
-  _id: z.string().optional(),
-  createdAt: z.string().optional(),
+  description: z.string().min(10, "Description must be at least 10 characters."),
+  status: z.enum(["New", "In Progress", "Resolved"]), // defaults to new in new ticket
+  createdAt: z.string().optional(), // not present for new ticket 
+}).refine(data => {
+  if (data._id && data.status) {
+    return true; // Valid for edit mode
+  }
+  return !data._id; // Valid for new mode
+}, {
+  message: "ID is required for editing tickets.",
+  path: ["_id"],
 });
 
 interface TicketFormProps {
   mode: "show" | "edit" | "new";
-  initialData?: z.infer<typeof formSchema>;
-  onSubmit?: (values: z.infer<typeof formSchema>) => Promise<void>;
+  initialData?: ExistingTicketFormValues;
+  onSubmit?: (values: TicketFormValues) => Promise<void>;
 }
 
 export default function TicketForm( { mode, initialData, onSubmit }: TicketFormProps) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
-      name: "",
-      email: "",
-      description: "",
-      status: "",
-      _id: "",
-      createdAt: "",
-    },
+  const form = useForm<TicketFormValues>({
+    resolver: zodResolver(ticketFormSchema),
+    defaultValues: mode === 'new' 
+    ? { name: '', email: '', description: '', status: 'New' }
+    : initialData,
   });
 
   const isReadOnly = mode === "show";
 
-  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (values: TicketFormValues ) => {
     if (onSubmit) {
       setLoading(true);
       try {
