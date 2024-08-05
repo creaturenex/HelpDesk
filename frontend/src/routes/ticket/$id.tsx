@@ -1,11 +1,14 @@
+import TShow from '@/components/ticket/TShow';
+// import TicketT from '@/components/ticket/TicketT';
 import { createFileRoute } from '@tanstack/react-router'
-import TicketT from '@/components/ticket/TicketT';
+
 
 export const Route = createFileRoute('/ticket/$id')({
-  component: () => <TicketT />
+  // component: () => <TicketT />
+  component: () => <TShow />
 });
 
-
+// TROUBLESHOOT PATH PARAMS
 // import { createRoute } from '@tanstack/react-router'
 // import Ticket from '@/components/ticket/Ticket';
 
