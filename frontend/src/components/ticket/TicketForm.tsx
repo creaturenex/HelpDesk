@@ -32,7 +32,7 @@ import { Link } from "@tanstack/react-router";
 import RotateLoader from "react-spinners/RotateLoader";
 import { ExistingTicketFormValues, TicketFormValues } from "@/types/types";
 
-export const ticketFormSchema = z.object({
+const ticketFormSchema = z.object({
   _id: z.string().optional(), // Not present for new ticket
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
@@ -55,7 +55,11 @@ interface TicketFormProps {
   onSubmit?: (values: TicketFormValues) => Promise<void>;
 }
 
-export default function TicketForm( { mode, initialData, onSubmit }: TicketFormProps) {
+export default function TicketForm({
+  mode,
+  initialData,
+  onSubmit,
+}: TicketFormProps) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 

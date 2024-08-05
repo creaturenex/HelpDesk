@@ -16,21 +16,12 @@ if (!MONGO_DB) {
 }
 
 mongoose
-  .connect(MONGO_DB, {
-    // options for the connect method to parse the URI
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as ConnectOptions)
+  .connect(MONGO_DB)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
 const PORT = 3000;
 const app: Application = express();
-
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   credentials: true
-// }));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -55,9 +46,6 @@ app.use(session({
 // this will eventually serve next.js build files
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-// Admin Router
-app.use("/", router);
-
 app.get('/debug-session', (req, res) => {
   res.json({
     session: req.session,
@@ -65,6 +53,8 @@ app.get('/debug-session', (req, res) => {
     cookies: req.cookies,
   });
 });
+
+app.use("/", router);
 
 // Global error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
