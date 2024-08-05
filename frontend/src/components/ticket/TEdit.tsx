@@ -26,7 +26,7 @@ export default function TEdit() {
   }, []);
 
   const handleSubmit = async (values: TicketFormValues) => {
-    if (!ticket || ticket._id) {
+    if (!ticket || !ticket._id) {
       console.error("Ticket ID is not defined");
       return
     }
